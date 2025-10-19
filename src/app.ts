@@ -1,8 +1,8 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 
-import path from 'node:path'
 import { adminRouter, shopRouter } from './routes'
+import { getPath } from './utils/path'
 
 const app = express()
 
@@ -13,7 +13,7 @@ app.use('/admin', adminRouter)
 app.use(shopRouter)
 
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+  res.status(404).sendFile(getPath('views', '404.html'))
 })
 
 app.listen(3000, () => {
