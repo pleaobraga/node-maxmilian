@@ -8,6 +8,7 @@ const app = express()
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static(getPath('..', 'public')))
 
 app.use('/admin', adminRouter)
 app.use(shopRouter)
