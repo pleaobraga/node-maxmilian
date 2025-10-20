@@ -1,10 +1,16 @@
 import express from 'express'
-import { getPath } from '../utils/path'
+
+import { products } from './admin'
 
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.sendFile(getPath('views', 'shop.html'))
+  console.log(products)
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+  })
 })
 
 export { router as shopRouter }

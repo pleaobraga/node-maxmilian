@@ -1,15 +1,20 @@
 import express from 'express'
-import { getPath } from '../utils/path'
 
 const router = express.Router()
 
+const products: { title: string }[] = []
+
 router.get('/add-product', (req, res, next) => {
-  res.sendFile(getPath('views', 'add-product.html'))
+  res.render('add-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
+  })
 })
 
 router.post('/add-product', (req, res, next) => {
+  products.push({ title: req.body.title })
   console.log(req.body)
   res.redirect('/')
 })
 
-export { router as adminRouter }
+export { router as adminRouter, products }
