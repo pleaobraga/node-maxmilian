@@ -1,16 +1,8 @@
 import express from 'express'
-
-import { products } from './admin'
+import { getProducts } from '../controllers/shop'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  console.log(products)
-  res.render('shop', {
-    prods: products,
-    pageTitle: 'Shop',
-    path: '/',
-  })
-})
+router.get('/', getProducts)
 
 export { router as shopRouter }
