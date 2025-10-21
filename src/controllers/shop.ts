@@ -15,6 +15,21 @@ export const getProducts = (
   })
 }
 
+export const getProduct = (req: Request, res: Response, next: NextFunction) => {
+  const productId = req.params.productId
+  const product = Product.findById(productId)
+
+  if (!product) {
+    return res.status(404).render('404', { pageTitle: 'Product Not Found' })
+  }
+
+  res.render('shop/product-detail', {
+    product,
+    pageTitle: product.title,
+    path: '/products',
+  })
+}
+
 export const getIndex = (req: Request, res: Response, next: NextFunction) => {
   const products = Product.fetchAll()
 
