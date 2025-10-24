@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+import { Cart } from '../models/cart'
 import { Product } from '../models/product'
 
 export const getProducts = (
@@ -45,6 +46,18 @@ export const getCart = (req: Request, res: Response, next: NextFunction) => {
     path: '/cart',
     pageTitle: 'Your Cart',
   })
+}
+
+export const postCart = (req: Request, res: Response, next: NextFunction) => {
+  const productId = req.body.productId
+  const product = Product.findById(productId)
+  Cart.addProduct(productId, product ? product.price : 0)
+
+  if (!product) {
+    return res.status(404).render('404', { pageTitle: 'Product Not Found' })
+  }
+
+  res.redirect('/cart')
 }
 
 export const getOrders = (req: Request, res: Response, next: NextFunction) => {
